@@ -36,7 +36,7 @@
 **Jakiro** is an advanced approach designed to enhance speculative decoding (SD) for large language models. By integrating Mixture of Experts (MoE), Jakiro enables independent experts to generate diverse predictions, effectively decoupling correlations among candidates and addressing a key limitation of traditional tree-based sampling. Jakiro significantly boosts prediction accuracy and inference speed, setting a new state-of-the-art (SOTA) in speculative decoding. Extensive experiments across various models demonstrate its robustness and effectiveness in real-world applications.
 
 ## Test demo
-The following shows the actual measured inference speeds of Jakiro and EAGLE-2 on a single RTX 4090 GPU with 24GB of memory. As shown, Jakiro has a faster decoding speed and a higher compression ratio.
+The following shows the actual measured inference speeds of Jakiro and EAGLE-2 on a single RTX 4090 GPU with 24GB of memory using the Vicuna 7B model. As shown, Jakiro has a faster decoding speed and a higher compression ratio.
 
 <table align="center" style="border-collapse: collapse;">
   <tr>
