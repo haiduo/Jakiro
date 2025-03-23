@@ -42,12 +42,6 @@ The following shows the actual measured inference speeds of Jakiro and EAGLE-2 o
   <img src="./figs/Eagle2.gif" alt="EAGLE-2 Demo" style="max-width: 49.5%; height: auto; margin-right: 1px;">
   <img src="./figs/Jakiro.gif" alt="Jakiro Demo" style="max-width: 49.5%; height: auto; margin-left: 1px;">
 </div>
-<table align="center" style="border-collapse: collapse;">
-  <tr>
-    <td style="padding-right: 1px;"><img src="./figs/Eagle2.gif" alt="EAGLE-2 Demo" style="max-width: 46.5%; height: auto;"></td>
-    <td style="padding-left: 1px;"><img src="./figs/Jakiro.gif" alt="Jakiro Demo" style="max-width: 46.5%; height: auto;"></td>
-  </tr>
-</table>
 
 ## Update
 **2025.3.24:** Jakiro and Jakiro* (codes and checkpoints) is released.
