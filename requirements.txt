@@ -1,0 +1,14 @@
+torch
+transformers
+datasets
+accelerate
+fschat
+gradio
+openai
+anthropic
+sentencepiece
+protobuf
+wandb
+ray
+# httpx[socks] # optional
+# deepspeed # optional
