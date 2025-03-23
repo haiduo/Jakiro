@@ -38,10 +38,13 @@
 ## Test demo
 The following shows the actual measured inference speeds of Jakiro and EAGLE-2 on a single RTX 4090 GPU with 24GB of memory using the Vicuna 7B model. As shown, Jakiro has a faster decoding speed and a higher compression ratio.
 
-<div align="center" style="display: flex; justify-content: center;">
-  <img src="./figs/Eagle2.gif" alt="EAGLE-2 Demo" style="max-width: 49.5%; height: auto; margin-right: 1px;">
-  <img src="./figs/Jakiro.gif" alt="Jakiro Demo" style="max-width: 49.5%; height: auto; margin-left: 1px;">
-</div>
+<table align="center" style="border-collapse: collapse;">
+  <tr>
+    <td style="padding-right: 1px;"><img src="./figs/Eagle2.gif" alt="EAGLE-2 Demo" style="max-width: 46.5%; height: auto;"></td>
+    <td style="padding-left: 1px;"><img src="./figs/Jakiro.gif" alt="Jakiro Demo" style="max-width: 46.5%; height: auto;"></td>
+  </tr>
+</table>
+
 
 ## Update
 **2025.3.24:** Jakiro and Jakiro* (codes and checkpoints) is released.
