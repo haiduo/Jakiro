@@ -1,7 +1,14 @@
-<img src="figs/jakiro.webp" alt="Jakiro" width="200" align="left"><div align="center"><h1>&nbsp;Jakiro</h1></div>
+<div align="center">
+  <div style="display: inline-block; vertical-align: middle;">
+    <img src="figs/jakiro.webp" alt="Jakiro" width="220">
+  </div>
+  <div style="display: inline-block; vertical-align: middle; margin-left: 10px;">
+    <h1>Jakiro</h1>
+  </div>
+</div>
 
 <p align="center">
-<a href="https://arxiv.org/pdf/"><b>Paper (Jakiro)</b></a>
+  <a href="https://arxiv.org/abs/2502.06282"><b>Paper (Jakiro)</b></a>
 </p>
 
 <div style="height:20px;"></div>
@@ -29,12 +36,18 @@
 **Jakiro** is an advanced approach designed to enhance speculative decoding (SD) for large language models. By integrating Mixture of Experts (MoE), Jakiro enables independent experts to generate diverse predictions, effectively decoupling correlations among candidates and addressing a key limitation of traditional tree-based sampling. Jakiro significantly boosts prediction accuracy and inference speed, setting a new state-of-the-art (SOTA) in speculative decoding. Extensive experiments across various models demonstrate its robustness and effectiveness in real-world applications.
 
 ## Test demo
-The following shows the actual measured inference speeds of Jakiro and EAGLE-2 on a single RTX 4090 GPU with 24GB of memory. As shown, Jakiro has a faster decoding speed and a higher compression ratio.
+The following shows the actual measured inference speeds of Jakiro and EAGLE-2 on a single RTX 4090 GPU with 24GB of memory using the Vicuna 7B model. As shown, Jakiro has a faster decoding speed and a higher compression ratio.
 
 <div align="center" style="display: flex; justify-content: center;">
   <img src="./figs/Eagle2.gif" alt="EAGLE-2 Demo" style="max-width: 49.5%; height: auto; margin-right: 1px;">
   <img src="./figs/Jakiro.gif" alt="Jakiro Demo" style="max-width: 49.5%; height: auto; margin-left: 1px;">
 </div>
+<table align="center" style="border-collapse: collapse;">
+  <tr>
+    <td style="padding-right: 1px;"><img src="./figs/Eagle2.gif" alt="EAGLE-2 Demo" style="max-width: 46.5%; height: auto;"></td>
+    <td style="padding-left: 1px;"><img src="./figs/Jakiro.gif" alt="Jakiro Demo" style="max-width: 46.5%; height: auto;"></td>
+  </tr>
+</table>
 
 ## Update
 **2025.3.24:** Jakiro and Jakiro* (codes and checkpoints) is released.
