@@ -51,7 +51,7 @@ The following shows the actual measured inference speeds of Jakiro and EAGLE-2 o
 
 
 ## Todo
-- [ ] Support more LLMs such as Mixtral 8x7B, Qwen-2 and -R1.
+- [ ] Support more LLMs such as Mixtral 8x7B, Qwen-2, and DeepSeek-R1.
 - [ ] Jakiro-V2 for Multimodal Large Language Models (LLaVA and InstructBLIP).
 
 
@@ -110,14 +110,14 @@ deepspeed main_deepspeed.py --deepspeed_config ds_config.json
 You can test the speed of EAGLE on MT-bench using the following command.  
 #### For Jakiro:
 ```bash
-# Switch to training mode. In jakiro.model.cnets.py, you need to uncomment self.mlp_moe = MixtralSparseMoeBlock(config) and comment out self.mlp_moe = MixtralSparseMoeBlock_train(config)
+# Switch to training mode. In jakiro.model.cnets.py, you need to uncomment self.mlp_moe = MixtralSparseMoeBlock_train(config) and comment out self.mlp_moe = MixtralSparseMoeBlock(config)
 python -m jakiro.evaluation.gen_ea_answer_vicuna(or gen_ea_answer_vicuna_llama2chat)\
 		 --ea-model-path [path of jakiro weight]\ 
 		 --base-model-path [path of the original model]\
 ```
 #### For Jakiro*:
 ```bash
-# Switch to training mode. In jakiro.model.cnets.py, you need to uncomment self.mlp_moe = MixtralSparseMoeBlock(config) and comment out self.mlp_moe = MixtralSparseMoeBlock_train(config)
+# Switch to training mode. In jakiro_star.model.cnets.py, you need to uncomment self.mlp_moe = MixtralSparseMoeBlock_train(config) and comment out self.mlp_moe = MixtralSparseMoeBlock(config)
 python -m jakiro.evaluation.gen_ea_answer_vicuna(or gen_ea_answer_vicuna_llama2chat)\
 		 --ea-model-path [path of jakiro weight]\ 
 		 --base-model-path [path of the original model]\
