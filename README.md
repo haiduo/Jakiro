@@ -62,12 +62,15 @@ pip install -r requirements.txt
 ```
 
 ## Jakiro Weights
- Base Model      | Jakiro                                                                                            | \# Parameters | Jakiro*             | \# Parameters 
-:---------------:|:-------------------------------------------------------------------------------------------------:|:-------------:|:-------------------:|:-------------:
- Vicuna-7B-v1.3  | [Jakiro-Vicuna-7B-v1.3](https://drive.google.com/drive/folders/1HBHMaXtvh4dFYEFuQASiJAb27sTREeGJ?usp=sharing)     | 0.38B         | [Jakiro*-Vicuna-7B-v1.3](https://drive.google.com/drive/folders/1TeyQ9f8TsvXr0lj_BysTcaAvpKIRGhgU?usp=sharing)    | 0.23B         
- Vicuna-13B-v1.3 | [Jakiro-Vicuna-13B-v1.3](https://drive.google.com/drive/folders/197pC42RU92r9tMW4tv1q4c-cJCigZk00?usp=sharing)    | 0.53B         | [Jakiro*-Vicuna-13B-v1.3](https://drive.google.com/drive/folders/1BYl-VU2xq_zMMJPwmCmsX3dFV-hF7_Zg?usp=sharing)   | 0.35B         
- LLaMA2-Chat 7B  | [Jakiro-LLaMA2-Chat-7B](https://drive.google.com/drive/folders/1FS7j8V6Lnx1xuJJg03VQZwwBAxhHosW2?usp=sharing)     | 0.38B         | [Jakiro*-LLaMA2-Chat-7B](https://drive.google.com/drive/folders/1_OwoUJOsMqInXN8FPUXZE0lZcYXXwZzz?usp=sharing)    | 0.23B         
- LLaMA2-Chat 13B | [Jakiro-LLaMA2-Chat-13B](https://drive.google.com/drive/folders/1bD2H6Yl6Uy5WR6VvODFMZBBJP02W9oe4?usp=sharing)    | 0.53B         | [Jakiro*-LLaMA2-Chat-13B](https://drive.google.com/drive/folders/1EFGrkuE3jzFbHAxzCVJCvBm4DBrsCa-b?usp=sharing)   | 0.35B         
+ Base Model         | Jakiro                                                                                | Jakiro*                                                                               
+:------------------:|:-------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------:
+ Vicuna-7B-v1.3     | [Jakiro-Vicuna-7B-v1.3](https://huggingface.co/Hhaiduo/Jakiro-Vicuna-7B-v1.3)         | [Jakiro*-Vicuna-7B-v1.3](https://huggingface.co/Hhaiduo/Jakiro_star-Vicuna-7B-v1.3)   
+ Vicuna-13B-v1.3    | [Jakiro-Vicuna-13B-v1.3](https://huggingface.co/Hhaiduo/Jakiro-Vicuna-13B-v1.3)       | [Jakiro*-Vicuna-13B-v1.3](https://huggingface.co/Hhaiduo/Jakiro_star-Vicuna-13B-v1.3) 
+ LLaMA2-Chat 7B     | [Jakiro-LLaMA2-Chat-7B](https://huggingface.co/Hhaiduo/Jakiro-LLaMA2-Chat-7B)         | [Jakiro*-LLaMA2-Chat-7B](https://huggingface.co/Hhaiduo/Jakiro_star-LLaMA2-Chat-7B)   
+ LLaMA2-Chat 13B    | [Jakiro-LLaMA2-Chat-13B](https://huggingface.co/Hhaiduo/Jakiro-LLaMA2-Chat-13B)       | [Jakiro*-LLaMA2-Chat-13B](https://huggingface.co/Hhaiduo/Jakiro_star-LLaMA2-Chat-13B) 
+ Llama3-instruct-8b | [Jakiro-Llama3-instruct-8b](https://huggingface.co/Hhaiduo/Jakiro-Llama3-instruct-8b) | N/A                                                                                   
+
+      
 
 Notably, other Jakiro LLMs' checkpoints are being organized and will be uploaded soon. If you need them urgently, please email the author for permission.
 

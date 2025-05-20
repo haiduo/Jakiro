@@ -518,7 +518,6 @@ class LlamaDecoderLayer(nn.Module):
 
         self.mlp_moe = MixtralSparseMoeBlock(config) # MOE for Jakiro* inference
         # self.mlp_moe = MixtralSparseMoeBlock_train(config) # MOE for Jakiro* train
-        
         # self.mlp = LlamaMLP(config)  # regular llama-MLP
         # self.mlp = GptNeoxMLP(config)  # regular gpt-MLP
 
@@ -582,7 +581,7 @@ def len_list(x,n):
     return [i for i in x if len(i)<=n]
 
 class Model(nn.Module):
-    def __init__(self,config, load_emb=False, path=None, bias=True):
+    def __init__(self,config, load_emb=True, path=None, bias=True):
         super().__init__()
         self.gradient_checkpointing = True
         self.padding_idx = config.pad_token_id

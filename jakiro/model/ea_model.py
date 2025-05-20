@@ -47,6 +47,7 @@ class EaModel(nn.Module):
         
         ####### Initialize the draft model of Jakiro #########
         self.ea_layer = Model(config, 
+                              path=base_model_name_or_path,
                               bias=bias,
                               total_tokens=total_token,
                               depth=depth,
@@ -66,7 +67,8 @@ class EaModel(nn.Module):
 
         else:
             self.ea_layer.diff_device = False
-        self.ea_layer.load_state_dict(ea_layer_state_dict, strict=True)
+        info = self.ea_layer.load_state_dict(ea_layer_state_dict, strict=False)
+        print(f"load_draft_model state_dict info: {info}")
         self.ea_layer.to(self.base_model.dtype).to(device)
         self.ea_layer.init_tree()
 
@@ -116,7 +118,13 @@ class EaModel(nn.Module):
         else:
             load_model_path=hf_hub_download(ea_model_path, "pytorch_model.bin")
             ea_layer_state_dict = torch.load(load_model_path, map_location="cpu")
-        
+
+        # # Temporarily save the file and remove unnecessary embedding and head layers
+        # state_dict = {k: v for k, v in ea_layer_state_dict.items() if "embed" not in k and "Head" not in k and "head" not in k}
+        # output_dir = '/home/haiduo/code/Jakiro/checkpoints_simple/Jakiro-LLaMA2-Chat-13B'
+        # os.makedirs(output_dir, exist_ok=True)
+        # WEIGHTS_NAME = "pytorch_model.bin"
+        # torch.save(state_dict, os.path.join(output_dir, WEIGHTS_NAME))
         
         model = cls(base_model, base_model_path, ea_configpath, total_token, depth, top_k, threshold, ea_layer_state_dict)
 

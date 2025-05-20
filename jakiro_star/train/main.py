@@ -4,7 +4,7 @@ import json
 from safetensors import safe_open
 # from transformers import AutoModelForCausalLM, AutoTokenizer,AutoModelForSequenceClassification
 import os,sys
-# os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import torch
 
 parser = argparse.ArgumentParser(description='sp')
@@ -16,7 +16,7 @@ parser.add_argument('--wd', type=float, default=1e-3)
 parser.add_argument('--gradient-accumulation-steps', type=int, default=1)
 parser.add_argument('--tmpdir', type=str, default='/home/haiduo/data/eagle_data/vicuna-7b-v1.3') # dataset path
 parser.add_argument('--cpdir', type=str, default='/home/haiduo/code/Jakiro/jakiro_star/outputs/ckpts') #checkpoint path
-parser.add_argument('--enable_wandb', type=bool, default=True)
+parser.add_argument('--enable_wandb', type=bool, default=False)
 parser.add_argument('--debug', type=bool, default=False)
 args = parser.parse_args()
 
@@ -56,9 +56,50 @@ torch.backends.cuda.matmul.allow_tf32 = True
 from accelerate import Accelerator
 from accelerate.utils import set_seed
 
+from accelerate.utils import DistributedType
+class CustomAccelerator(Accelerator):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def get_state_dict(self, model, unwrap=True):
+        if self.distributed_type == DistributedType.DEEPSPEED:
+            if self.deepspeed_config["zero_optimization"]["stage"] == 3:
+                if model.zero_gather_16bit_weights_on_model_save():
+                    state_dict = model._zero3_consolidated_16bit_state_dict()
+                else:
+                    raise ValueError(
+                        "Cannot get 16bit model weights because `stage3_gather_16bit_weights_on_model_save` in DeepSpeed config is False. "
+                        "To save the model weights in 16bit, set `stage3_gather_16bit_weights_on_model_save` to True in DeepSpeed config file or "
+                        "set `zero3_save_16bit_model` to True when using `accelerate config`. "
+                        "To save the full checkpoint, run `model.save_checkpoint(save_dir)` and use `zero_to_fp32.py` to recover weights."
+                    )
+            else:
+                from deepspeed.checkpoint.utils import clone_tensors_for_torch_save
+                state_dict = clone_tensors_for_torch_save(self.unwrap_model(model).state_dict())
+        elif self.distributed_type == DistributedType.FSDP:
+            from torch.distributed.fsdp import FullStateDictConfig, StateDictType
+            from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
+
+            if unwrap:
+                model = self.unwrap_model(model)
+            full_state_dict_config = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
+            with FSDP.state_dict_type(model, StateDictType.FULL_STATE_DICT, full_state_dict_config):
+                state_dict = model.state_dict()
+        else:
+            if unwrap:
+                model = self.unwrap_model(model)
+            state_dict = model.state_dict()
+
+        # No need to save head and embedding layers
+        if len(state_dict) <=1: 
+            return None
+        else:
+            eagle_state_dict = {k: v for k, v in state_dict.items() if "embed" not in k and "Head" not in k and "head" not in k}
+            return eagle_state_dict
+
 set_seed(0)
 #### original #####
-accelerator = Accelerator(mixed_precision='bf16', gradient_accumulation_steps=train_config["gradient_accumulation_steps"])
+accelerator = CustomAccelerator(mixed_precision='bf16', gradient_accumulation_steps=train_config["gradient_accumulation_steps"])
 
 #### Alter: Training for MOE ###
 # from accelerate import DistributedDataParallelKwargs
@@ -500,11 +541,13 @@ for epoch in range(num_epochs + 1):
             for id, i in enumerate(top_3acc):
                 if args.enable_wandb:
                     wandb.log({f'test/top_{id + 1}_acc': i.sum().item() / total})
-        epoch_loss /= num_batches
+        epoch_loss /= (num_batches+1e-6)
         if accelerator.is_local_main_process:
             print('Test Epoch [{}/{}], Loss: {:.4f}'.format(epoch + 1, num_epochs, epoch_loss))
-            print('Test Accuracy: {:.2f}%'.format(100 * correct / total))
+            print('Test Accuracy: {:.2f}%'.format(100 * correct / (total+1e-6)))
             if args.enable_wandb:
                 wandb.log({"test/epochacc": correct / total, "test/epochloss": epoch_loss})
-            if epoch>18:
-                accelerator.save_state(output_dir=f"{args.cpdir}/state_{epoch}")
+            if epoch>18 or epoch <1:
+                accelerator.save_state(output_dir=f"{args.cpdir}/state_{epoch}", safe_serialization=False)
+
+            print(f"finish {epoch}-epoch save state!")

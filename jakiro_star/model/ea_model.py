@@ -42,7 +42,7 @@ class EaModel(nn.Module):
         except:
             bias=True
         # bias=True # For llama3-8
-        self.ea_layer = Model(config, bias=bias)
+        self.ea_layer = Model(config, path=base_model_name_or_path, bias=bias)
 
         low_memory=False
 
@@ -106,7 +106,15 @@ class EaModel(nn.Module):
             load_model_path=hf_hub_download(ea_model_path, "pytorch_model.bin")
             ea_layer_state_dict = torch.load(load_model_path, map_location="cpu")
 
-        model.ea_layer.load_state_dict(ea_layer_state_dict, strict=True)
+        # # Temporarily save the file and remove unnecessary embedding and head layers
+        # state_dict = {k: v for k, v in ea_layer_state_dict.items() if "embed" not in k and "Head" not in k and "head" not in k}
+        # output_dir = '/home/haiduo/code/Jakiro/checkpoints_simple/Jakiro_star-LLaMA2-Chat-13B'
+        # os.makedirs(output_dir, exist_ok=True)
+        # WEIGHTS_NAME = "pytorch_model.bin"
+        # torch.save(state_dict, os.path.join(output_dir, WEIGHTS_NAME))
+        
+        info = model.ea_layer.load_state_dict(ea_layer_state_dict, strict=False)
+        print(f"load_draft_model state_dict info: {info}")
         return model
 
     def forward(
