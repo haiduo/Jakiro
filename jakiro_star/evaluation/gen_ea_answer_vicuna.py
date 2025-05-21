@@ -369,7 +369,7 @@ if __name__ == "__main__":
     args.model_id = args.model_id + "-temperature-" + str(args.temperature)
     args.tree_choices = eval(args.tree_choices)
     if args.num_gpus_total // args.num_gpus_per_model > 1:
-        import ray #用于分布式计算的Python库，它可以轻松地将代码并行化和分布式化
+        import ray
         ray.init()
 
     question_file = f"{parent_dir}/data/{args.bench_name}/question.jsonl"
