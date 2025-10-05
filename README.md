@@ -50,8 +50,8 @@ The following shows the actual measured inference speeds of Jakiro and EAGLE-2 o
 
 
 ## Todo
-- [ ] Support more LLMs such as Mixtral 8x7B, Qwen-2, and DeepSeek-R1.
-- [ ] Jakiro-V2 for Multimodal Large Language Models (LLaVA and InstructBLIP).
+- [x] Support more LLMs such as Mixtral 8x7B, Qwen-2, and DeepSeek-R1.
+- [x] [SpecVLM](https://github.com/haiduo/SpecVLM) for Multimodal Large Language Models (LLaVA and InstructBLIP).
 
 
 ## Setup & Installation
